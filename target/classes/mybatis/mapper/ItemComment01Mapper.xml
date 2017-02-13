@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaolan.dao.ItemComment01Mapper" >
+  <resultMap id="BaseResultMap" type="com.xiaolan.bean.ItemComment01" >
+    <id column="comment_id" property="commentId" jdbcType="INTEGER" />
+    <result column="reference_id" property="referenceId" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="DATE" />
+    <result column="thumbnails" property="thumbnails" jdbcType="VARCHAR" />
+    <result column="HDimages" property="hdimages" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    comment_id, reference_id, user_id, content, create_time, thumbnails, HDimages
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from item_comment01
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from item_comment01
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xiaolan.bean.ItemComment01" >
+    insert into item_comment01 (comment_id, reference_id, user_id, 
+      content, create_time, thumbnails, 
+      HDimages)
+    values (#{commentId,jdbcType=INTEGER}, #{referenceId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{content,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, #{thumbnails,jdbcType=VARCHAR}, 
+      #{hdimages,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiaolan.bean.ItemComment01" >
+    insert into item_comment01
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >
+        comment_id,
+      </if>
+      <if test="referenceId != null" >
+        reference_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="thumbnails != null" >
+        thumbnails,
+      </if>
+      <if test="hdimages != null" >
+        HDimages,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commentId != null" >
+        #{commentId,jdbcType=INTEGER},
+      </if>
+      <if test="referenceId != null" >
+        #{referenceId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="thumbnails != null" >
+        #{thumbnails,jdbcType=VARCHAR},
+      </if>
+      <if test="hdimages != null" >
+        #{hdimages,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiaolan.bean.ItemComment01" >
+    update item_comment01
+    <set >
+      <if test="referenceId != null" >
+        reference_id = #{referenceId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="thumbnails != null" >
+        thumbnails = #{thumbnails,jdbcType=VARCHAR},
+      </if>
+      <if test="hdimages != null" >
+        HDimages = #{hdimages,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiaolan.bean.ItemComment01" >
+    update item_comment01
+    set reference_id = #{referenceId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      content = #{content,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=DATE},
+      thumbnails = #{thumbnails,jdbcType=VARCHAR},
+      HDimages = #{hdimages,jdbcType=VARCHAR}
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+</mapper>
