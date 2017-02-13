@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiaolan.dao.ItemDetailedMsgMapper" >
+  <resultMap id="BaseResultMap" type="com.xiaolan.bean.ItemDetailedMsg" >
+    <id column="item_id" property="itemId" jdbcType="INTEGER" />
+    <result column="item_info" property="itemInfo" jdbcType="VARCHAR" />
+    <result column="thumbnails" property="thumbnails" jdbcType="VARCHAR" />
+    <result column="HDimages" property="hdimages" jdbcType="VARCHAR" />
+    <result column="stock" property="stock" jdbcType="INTEGER" />
+    <result column="comment_table" property="commentTable" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    item_id, item_info, thumbnails, HDimages, stock, comment_table
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from item_detailed_msg
+    where item_id = #{itemId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from item_detailed_msg
+    where item_id = #{itemId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xiaolan.bean.ItemDetailedMsg" >
+    insert into item_detailed_msg (item_id, item_info, thumbnails, 
+      HDimages, stock, comment_table
+      )
+    values (#{itemId,jdbcType=INTEGER}, #{itemInfo,jdbcType=VARCHAR}, #{thumbnails,jdbcType=VARCHAR}, 
+      #{hdimages,jdbcType=VARCHAR}, #{stock,jdbcType=INTEGER}, #{commentTable,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.xiaolan.bean.ItemDetailedMsg" >
+    insert into item_detailed_msg
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="itemId != null" >
+        item_id,
+      </if>
+      <if test="itemInfo != null" >
+        item_info,
+      </if>
+      <if test="thumbnails != null" >
+        thumbnails,
+      </if>
+      <if test="hdimages != null" >
+        HDimages,
+      </if>
+      <if test="stock != null" >
+        stock,
+      </if>
+      <if test="commentTable != null" >
+        comment_table,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="itemId != null" >
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemInfo != null" >
+        #{itemInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbnails != null" >
+        #{thumbnails,jdbcType=VARCHAR},
+      </if>
+      <if test="hdimages != null" >
+        #{hdimages,jdbcType=VARCHAR},
+      </if>
+      <if test="stock != null" >
+        #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="commentTable != null" >
+        #{commentTable,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xiaolan.bean.ItemDetailedMsg" >
+    update item_detailed_msg
+    <set >
+      <if test="itemInfo != null" >
+        item_info = #{itemInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbnails != null" >
+        thumbnails = #{thumbnails,jdbcType=VARCHAR},
+      </if>
+      <if test="hdimages != null" >
+        HDimages = #{hdimages,jdbcType=VARCHAR},
+      </if>
+      <if test="stock != null" >
+        stock = #{stock,jdbcType=INTEGER},
+      </if>
+      <if test="commentTable != null" >
+        comment_table = #{commentTable,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where item_id = #{itemId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xiaolan.bean.ItemDetailedMsg" >
+    update item_detailed_msg
+    set item_info = #{itemInfo,jdbcType=VARCHAR},
+      thumbnails = #{thumbnails,jdbcType=VARCHAR},
+      HDimages = #{hdimages,jdbcType=VARCHAR},
+      stock = #{stock,jdbcType=INTEGER},
+      comment_table = #{commentTable,jdbcType=VARCHAR}
+    where item_id = #{itemId,jdbcType=INTEGER}
+  </update>
+</mapper>
