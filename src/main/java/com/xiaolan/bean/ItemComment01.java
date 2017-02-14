@@ -17,6 +17,8 @@ public class ItemComment01 {
 
     private String hdimages;
 
+    private String status;
+
     public Integer getCommentId() {
         return commentId;
     }
@@ -71,5 +73,13 @@ public class ItemComment01 {
 
     public void setHdimages(String hdimages) {
         this.hdimages = hdimages == null ? null : hdimages.trim();
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
     }
 }

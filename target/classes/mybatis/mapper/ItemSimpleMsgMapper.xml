@@ -3,13 +3,11 @@
 <mapper namespace="com.xiaolan.dao.ItemSimpleMsgMapper" >
   <resultMap id="BaseResultMap" type="com.xiaolan.bean.ItemSimpleMsg" >
     <id column="item_id" property="itemId" jdbcType="INTEGER" />
-    <result column="home_page" property="homePage" jdbcType="VARCHAR" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="thumbnail" property="thumbnail" jdbcType="VARCHAR" />
-    <result column="price" property="price" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    item_id, home_page, title, thumbnail, price
+    item_id, title, thumbnail
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -17,15 +15,22 @@
     from item_simple_msg
     where item_id = #{itemId,jdbcType=INTEGER}
   </select>
+
+  <select id="selectItemsInPages" resultType="com.xiaolan.po.Pager" resultMap="BaseResultMap">
+      select
+      <include refid="Base_Column_List" />
+      from
+      item_simple_msg
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from item_simple_msg
     where item_id = #{itemId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.xiaolan.bean.ItemSimpleMsg" >
-    insert into item_simple_msg (item_id, home_page, title, 
-      thumbnail, price)
-    values (#{itemId,jdbcType=INTEGER}, #{homePage,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
-      #{thumbnail,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR})
+    insert into item_simple_msg (item_id, title, thumbnail
+      )
+    values (#{itemId,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{thumbnail,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.xiaolan.bean.ItemSimpleMsg" >
     insert into item_simple_msg
@@ -33,25 +38,16 @@
       <if test="itemId != null" >
         item_id,
       </if>
-      <if test="homePage != null" >
-        home_page,
-      </if>
       <if test="title != null" >
         title,
       </if>
       <if test="thumbnail != null" >
         thumbnail,
       </if>
-      <if test="price != null" >
-        price,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="itemId != null" >
         #{itemId,jdbcType=INTEGER},
-      </if>
-      <if test="homePage != null" >
-        #{homePage,jdbcType=VARCHAR},
       </if>
       <if test="title != null" >
         #{title,jdbcType=VARCHAR},
@@ -59,35 +55,24 @@
       <if test="thumbnail != null" >
         #{thumbnail,jdbcType=VARCHAR},
       </if>
-      <if test="price != null" >
-        #{price,jdbcType=VARCHAR},
-      </if>
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.xiaolan.bean.ItemSimpleMsg" >
     update item_simple_msg
     <set >
-      <if test="homePage != null" >
-        home_page = #{homePage,jdbcType=VARCHAR},
-      </if>
       <if test="title != null" >
         title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="thumbnail != null" >
         thumbnail = #{thumbnail,jdbcType=VARCHAR},
       </if>
-      <if test="price != null" >
-        price = #{price,jdbcType=VARCHAR},
-      </if>
     </set>
     where item_id = #{itemId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.xiaolan.bean.ItemSimpleMsg" >
     update item_simple_msg
-    set home_page = #{homePage,jdbcType=VARCHAR},
-      title = #{title,jdbcType=VARCHAR},
-      thumbnail = #{thumbnail,jdbcType=VARCHAR},
-      price = #{price,jdbcType=VARCHAR}
+    set title = #{title,jdbcType=VARCHAR},
+      thumbnail = #{thumbnail,jdbcType=VARCHAR}
     where item_id = #{itemId,jdbcType=INTEGER}
   </update>
 </mapper>

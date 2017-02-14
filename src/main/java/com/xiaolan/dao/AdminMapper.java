@@ -1,6 +1,7 @@
 package com.xiaolan.dao;
 
 import com.xiaolan.bean.Admin;
+import org.apache.ibatis.annotations.Param;
 
 public interface AdminMapper {
     int deleteByPrimaryKey(Integer adminId);
@@ -14,4 +15,8 @@ public interface AdminMapper {
     int updateByPrimaryKeySelective(Admin record);
 
     int updateByPrimaryKey(Admin record);
+
+    Admin selectByIdAndPass(@Param("adminId") String adminId, @Param("password") String password);
+
+    Integer selectById(String id);
 }

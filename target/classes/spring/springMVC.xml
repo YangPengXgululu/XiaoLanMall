@@ -14,9 +14,16 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.
 
     <context:component-scan base-package="com.xiaolan.controller"/>
 
+    <bean class="com.xiaolan.listerner.SpringReadyLis" lazy-init="false"/>
+
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <property name="prefix" value="/WEB-INF/jsp/"/>
         <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- maxUploadSize:文件上传的最大值以byte为单位 -->
+        <property name="maxUploadSize" value="1024000"></property>
     </bean>
 
     <!--返回json需要的配置-->

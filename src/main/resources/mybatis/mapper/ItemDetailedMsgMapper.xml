@@ -4,13 +4,16 @@
   <resultMap id="BaseResultMap" type="com.xiaolan.bean.ItemDetailedMsg" >
     <id column="item_id" property="itemId" jdbcType="INTEGER" />
     <result column="item_info" property="itemInfo" jdbcType="VARCHAR" />
+    <result column="item_type" property="itemType" jdbcType="VARCHAR" />
     <result column="thumbnails" property="thumbnails" jdbcType="VARCHAR" />
     <result column="HDimages" property="hdimages" jdbcType="VARCHAR" />
     <result column="stock" property="stock" jdbcType="INTEGER" />
     <result column="comment_table" property="commentTable" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="REAL" />
   </resultMap>
   <sql id="Base_Column_List" >
-    item_id, item_info, thumbnails, HDimages, stock, comment_table
+    item_id, item_info, item_type, thumbnails, HDimages, stock, comment_table, price,title
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -18,17 +21,23 @@
     from item_detailed_msg
     where item_id = #{itemId,jdbcType=INTEGER}
   </select>
+  <select id="selectPriceByPrimaryKey" parameterType="java.lang.Integer" resultType="Float">
+    select price from item_detailed_msg where item_id=#{itemId}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from item_detailed_msg
     where item_id = #{itemId,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.xiaolan.bean.ItemDetailedMsg" >
-    insert into item_detailed_msg (item_id, item_info, thumbnails, 
-      HDimages, stock, comment_table
-      )
-    values (#{itemId,jdbcType=INTEGER}, #{itemInfo,jdbcType=VARCHAR}, #{thumbnails,jdbcType=VARCHAR}, 
-      #{hdimages,jdbcType=VARCHAR}, #{stock,jdbcType=INTEGER}, #{commentTable,jdbcType=VARCHAR}
-      )
+    <selectKey keyProperty="itemId" order="AFTER" resultType="Integer">
+      select last_insert_id()
+    </selectKey>
+    insert into item_detailed_msg (item_id, item_info, item_type, 
+      thumbnails, HDimages, stock, 
+      comment_table, price,title)
+    values (#{itemId,jdbcType=INTEGER}, #{itemInfo,jdbcType=VARCHAR}, #{itemType,jdbcType=VARCHAR}, 
+      #{thumbnails,jdbcType=VARCHAR}, #{hdimages,jdbcType=VARCHAR}, #{stock,jdbcType=INTEGER}, 
+      #{commentTable,jdbcType=VARCHAR}, #{price,jdbcType=REAL},#{title,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.xiaolan.bean.ItemDetailedMsg" >
     insert into item_detailed_msg
@@ -39,17 +48,26 @@
       <if test="itemInfo != null" >
         item_info,
       </if>
+      <if test="itemType != null" >
+        item_type,
+      </if>
       <if test="thumbnails != null" >
         thumbnails,
       </if>
       <if test="hdimages != null" >
         HDimages,
       </if>
+      <if test="title != null" >
+        title,
+      </if>
       <if test="stock != null" >
         stock,
       </if>
       <if test="commentTable != null" >
         comment_table,
+      </if>
+      <if test="price != null" >
+        price,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -59,17 +77,26 @@
       <if test="itemInfo != null" >
         #{itemInfo,jdbcType=VARCHAR},
       </if>
+      <if test="itemType != null" >
+        #{itemType,jdbcType=VARCHAR},
+      </if>
       <if test="thumbnails != null" >
         #{thumbnails,jdbcType=VARCHAR},
       </if>
       <if test="hdimages != null" >
         #{hdimages,jdbcType=VARCHAR},
       </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
       <if test="stock != null" >
         #{stock,jdbcType=INTEGER},
       </if>
       <if test="commentTable != null" >
         #{commentTable,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=REAL},
       </if>
     </trim>
   </insert>
@@ -79,11 +106,17 @@
       <if test="itemInfo != null" >
         item_info = #{itemInfo,jdbcType=VARCHAR},
       </if>
+      <if test="itemType != null" >
+        item_type = #{itemType,jdbcType=VARCHAR},
+      </if>
       <if test="thumbnails != null" >
         thumbnails = #{thumbnails,jdbcType=VARCHAR},
       </if>
       <if test="hdimages != null" >
         HDimages = #{hdimages,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="stock != null" >
         stock = #{stock,jdbcType=INTEGER},
@@ -91,16 +124,22 @@
       <if test="commentTable != null" >
         comment_table = #{commentTable,jdbcType=VARCHAR},
       </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=REAL},
+      </if>
     </set>
     where item_id = #{itemId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.xiaolan.bean.ItemDetailedMsg" >
     update item_detailed_msg
     set item_info = #{itemInfo,jdbcType=VARCHAR},
+      item_type = #{itemType,jdbcType=VARCHAR},
       thumbnails = #{thumbnails,jdbcType=VARCHAR},
       HDimages = #{hdimages,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
       stock = #{stock,jdbcType=INTEGER},
-      comment_table = #{commentTable,jdbcType=VARCHAR}
+      comment_table = #{commentTable,jdbcType=VARCHAR},
+      price = #{price,jdbcType=REAL}
     where item_id = #{itemId,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -9,6 +9,8 @@ public class User {
 
     private String address;
 
+    private String userName;
+
     public Integer getUserId() {
         return userId;
     }
@@ -39,5 +41,13 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address == null ? null : address.trim();
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName == null ? null : userName.trim();
     }
 }

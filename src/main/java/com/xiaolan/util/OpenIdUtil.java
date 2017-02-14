@@ -2,6 +2,7 @@ package com.xiaolan.util;
 
 import com.google.gson.Gson;
 import com.xiaolan.po.Code2OpenId;
+import com.xiaolan.staticconfig.StaticConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,15 +15,14 @@ import org.slf4j.LoggerFactory;
 public class OpenIdUtil {
     private static Logger log = LoggerFactory.getLogger("logger");
 
-    private static final String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=wx6211d324a34ac687&secret=0757876d0170ece43e0723ef97b28e3d&code={CODE}&grant_type=authorization_code";
-
-//    https://api.weixin.qq.com/sns/jscode2session?appid=wx6211d324a34ac687&secret=0757876d0170ece43e0723ef97b28e3d&js_code=&grant_type=authorization_code
     public static String getOpenIdByCode(String code) {
         String res = null;
+        String mp_appId = JedisUtil.getValue("MP_APPID");
+        String mp_secret = JedisUtil.getValue("MP_SECRET");
         try {
-            res = HttpUtil.get(url.replace("{CODE}",code));
+            res = HttpUtil.get(StaticConfig.url4Openid.replace("{MP_APPID}", mp_appId).replace("{MP_SECRET}", mp_secret).replace("{CODE}", code));
         } catch (Exception e) {
-            log.error("getOpenIdByCode()：Http请求发起失败，原因是{}", e.getMessage());
+            log.error("getOpenIdByCode()：获取openId失败，原因是{}", e.getMessage());
         }
         return new Gson().fromJson(res, Code2OpenId.class).getOpenid();
     }

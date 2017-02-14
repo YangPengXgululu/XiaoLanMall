@@ -17,7 +17,7 @@ public class MybatisGenerator {
 		List<String> warnings = new ArrayList<String>();
 		boolean overwrite = true;
 //		File configFile = new File("/home/fallen/IdeaProjects/XiaoLanMall/src/main/resources/mybatis/GeneratorConfig.xml");
-		File configFile=FileFinder.getFileByName("GeneratorConfig.xml");
+		File configFile=FileFinder.find("GeneratorConfig.xml");
 		ConfigurationParser cp = new ConfigurationParser(warnings);
 		Configuration config = cp.parseConfiguration(configFile);
 		DefaultShellCallback callback = new DefaultShellCallback(overwrite);

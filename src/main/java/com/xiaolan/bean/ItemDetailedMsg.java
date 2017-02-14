@@ -5,6 +5,10 @@ public class ItemDetailedMsg {
 
     private String itemInfo;
 
+    private String itemType;
+
+    private String title;
+
     private String thumbnails;
 
     private String hdimages;
@@ -12,6 +16,16 @@ public class ItemDetailedMsg {
     private Integer stock;
 
     private String commentTable;
+
+    private Float price;
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
     public Integer getItemId() {
         return itemId;
@@ -27,6 +41,14 @@ public class ItemDetailedMsg {
 
     public void setItemInfo(String itemInfo) {
         this.itemInfo = itemInfo == null ? null : itemInfo.trim();
+    }
+
+    public String getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(String itemType) {
+        this.itemType = itemType == null ? null : itemType.trim();
     }
 
     public String getThumbnails() {
@@ -59,5 +81,13 @@ public class ItemDetailedMsg {
 
     public void setCommentTable(String commentTable) {
         this.commentTable = commentTable == null ? null : commentTable.trim();
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
     }
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <!--用户多久不操作掉线，单位：秒-->
+    <user_alive_time>
+        600
+    </user_alive_time>
+
+    <admin_alive_time>
+        600
+    </admin_alive_time>
+
+    <page_size>
+        10
+    </page_size>
+
+    <upload_dir>
+        /home/fallen/git/XiaoLanMall/src/main/resources/Temp
+    </upload_dir>
+
+    <upload_prefix>
+        http://olax6wbe7.bkt.clouddn.com/
+    </upload_prefix>
+
+    <bucket_name>
+        xiaolan
+    </bucket_name>
+
+    <comment_table>
+        item_comment01
+    </comment_table>
+    <url4Openid>
+        https://api.weixin.qq.com/sns/jscode2session?appid={MP_APPID}&amp;secret={MP_SECRET}&amp;js_code={CODE}
+        &amp;grant_type=authorization_code
+    </url4Openid>
+</config>

@@ -1,58 +1,90 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xiaolan.dao.AdminMapper" >
-  <resultMap id="BaseResultMap" type="com.xiaolan.bean.Admin" >
-    <id column="admin_id" property="adminId" jdbcType="INTEGER" />
-    <result column="openid" property="openid" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    admin_id, openid
+<mapper namespace="com.xiaolan.dao.AdminMapper">
+    <resultMap id="BaseResultMap" type="com.xiaolan.bean.Admin">
+        <id column="admin_id" property="adminId" jdbcType="INTEGER"/>
+        <result column="openid" property="openid" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="note" property="note" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    admin_id, openid, password, note
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from admin
-    where admin_id = #{adminId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from admin
+        where admin_id = #{adminId,jdbcType=INTEGER}
+    </select>
+    <select id="selectByIdAndPass" parameterType="String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from admin where admin_id = #{adminId} and password=#{password}
+    </select>
+    <select id="selectById" parameterType="String" resultType="Integer">
+      select count(0) from admin where admin_id=#{id}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from admin
     where admin_id = #{adminId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.xiaolan.bean.Admin" >
-    insert into admin (admin_id, openid)
-    values (#{adminId,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR})
+    <insert id="insert" parameterType="com.xiaolan.bean.Admin">
+    insert into admin (admin_id, openid, password, 
+      note)
+    values (#{adminId,jdbcType=INTEGER}, #{openid,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{note,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.xiaolan.bean.Admin" >
-    insert into admin
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="adminId != null" >
-        admin_id,
-      </if>
-      <if test="openid != null" >
-        openid,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="adminId != null" >
-        #{adminId,jdbcType=INTEGER},
-      </if>
-      <if test="openid != null" >
-        #{openid,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xiaolan.bean.Admin" >
+    <insert id="insertSelective" parameterType="com.xiaolan.bean.Admin">
+        insert into admin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="adminId != null">
+                admin_id,
+            </if>
+            <if test="openid != null">
+                openid,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="note != null">
+                note,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="adminId != null">
+                #{adminId,jdbcType=INTEGER},
+            </if>
+            <if test="openid != null">
+                #{openid,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="note != null">
+                #{note,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xiaolan.bean.Admin">
+        update admin
+        <set>
+            <if test="openid != null">
+                openid = #{openid,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="note != null">
+                note = #{note,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where admin_id = #{adminId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xiaolan.bean.Admin">
     update admin
-    <set >
-      <if test="openid != null" >
-        openid = #{openid,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where admin_id = #{adminId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.xiaolan.bean.Admin" >
-    update admin
-    set openid = #{openid,jdbcType=VARCHAR}
+    set openid = #{openid,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR}
     where admin_id = #{adminId,jdbcType=INTEGER}
   </update>
 </mapper>

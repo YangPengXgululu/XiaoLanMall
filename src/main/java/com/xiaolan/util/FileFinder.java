@@ -13,7 +13,7 @@ import java.util.Collection;
  * Usage: 根据文件名找到配置文件
  */
 public class FileFinder {
-    public static File getFileByName(String fileName) {
+    public static File find(String fileName) {
         File res = null;
         try {
             //扩展名

@@ -14,4 +14,6 @@ public interface ItemDetailedMsgMapper {
     int updateByPrimaryKeySelective(ItemDetailedMsg record);
 
     int updateByPrimaryKey(ItemDetailedMsg record);
+
+    Float selectPriceByPrimaryKey(Integer itemId);
 }

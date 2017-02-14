@@ -1,6 +1,9 @@
 package com.xiaolan.dao;
 
 import com.xiaolan.bean.ItemSimpleMsg;
+import com.xiaolan.po.Pager;
+
+import java.util.List;
 
 public interface ItemSimpleMsgMapper {
     int deleteByPrimaryKey(Integer itemId);
@@ -14,4 +17,6 @@ public interface ItemSimpleMsgMapper {
     int updateByPrimaryKeySelective(ItemSimpleMsg record);
 
     int updateByPrimaryKey(ItemSimpleMsg record);
+
+    List<ItemSimpleMsg> selectItemsInPages(Pager pager);
 }

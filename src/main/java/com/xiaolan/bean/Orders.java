@@ -29,8 +29,6 @@ public class Orders {
 
     private String phone;
 
-    private String zipCode;
-
     private String address;
 
     private String status;
@@ -139,14 +137,6 @@ public class Orders {
 
     public void setPhone(String phone) {
         this.phone = phone == null ? null : phone.trim();
-    }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode == null ? null : zipCode.trim();
     }
 
     public String getAddress() {
