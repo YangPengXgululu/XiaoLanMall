@@ -10,10 +10,7 @@ import com.xiaolan.service.ItemSer;
 import com.xiaolan.staticconfig.StaticConfig;
 import com.xiaolan.util.QiniuUtil;
 import net.coobird.thumbnailator.Thumbnails;
-import org.apache.commons.io.FileSystemUtils;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -22,7 +19,6 @@ import javax.annotation.Resource;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Author: fallen

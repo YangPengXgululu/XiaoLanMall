@@ -1,6 +1,9 @@
 package com.xiaolan.service;
 
 import com.xiaolan.bean.Orders;
+import com.xiaolan.po.OrderPre;
+
+import java.util.ArrayList;
 
 /**
  * Author: fallen
@@ -10,10 +13,11 @@ import com.xiaolan.bean.Orders;
  */
 public interface OrderSer {
 
-    Orders getOrderByUserID(int userId);
+    Orders getOrderByOrderId(int orderId);
 
-    int orderCreate(Orders orders);
+    Integer orderCreate(OrderPre orderPre);
 
     int orderUpdate(Orders orders);
 
+    ArrayList<String> getUserOrderIdList(int userId);
 }

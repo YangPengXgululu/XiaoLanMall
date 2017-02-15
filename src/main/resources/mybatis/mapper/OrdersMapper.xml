@@ -1,45 +1,48 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.xiaolan.dao.OrdersMapper" >
-  <resultMap id="BaseResultMap" type="com.xiaolan.bean.Orders" >
-    <id column="order_id" property="orderId" jdbcType="INTEGER" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="break_time" property="breakTime" jdbcType="TIMESTAMP" />
-    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
-    <result column="order_fee" property="orderFee" jdbcType="REAL" />
-    <result column="order_list" property="orderList" jdbcType="VARCHAR" />
-    <result column="prepay_id" property="prepayId" jdbcType="VARCHAR" />
-    <result column="trasaction_id" property="trasactionId" jdbcType="VARCHAR" />
-    <result column="notify_url" property="notifyUrl" jdbcType="VARCHAR" />
-    <result column="attach" property="attach" jdbcType="VARCHAR" />
-    <result column="user_name" property="userName" jdbcType="VARCHAR" />
-    <result column="phone" property="phone" jdbcType="VARCHAR" />
-    <result column="address" property="address" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="VARCHAR" />
-    <result column="note" property="note" jdbcType="VARCHAR" />
-  </resultMap>
-  <sql id="Base_Column_List" >
+<mapper namespace="com.xiaolan.dao.OrdersMapper">
+    <resultMap id="BaseResultMap" type="com.xiaolan.bean.Orders">
+        <id column="order_id" property="orderId" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="break_time" property="breakTime" jdbcType="TIMESTAMP"/>
+        <result column="end_time" property="endTime" jdbcType="TIMESTAMP"/>
+        <result column="order_fee" property="orderFee" jdbcType="REAL"/>
+        <result column="order_list" property="orderList" jdbcType="VARCHAR"/>
+        <result column="prepay_id" property="prepayId" jdbcType="VARCHAR"/>
+        <result column="trasaction_id" property="trasactionId" jdbcType="VARCHAR"/>
+        <result column="notify_url" property="notifyUrl" jdbcType="VARCHAR"/>
+        <result column="attach" property="attach" jdbcType="VARCHAR"/>
+        <result column="user_name" property="userName" jdbcType="VARCHAR"/>
+        <result column="phone" property="phone" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="note" property="note" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
     order_id, user_id, create_time, break_time, end_time, order_fee, order_list, prepay_id, 
     trasaction_id, notify_url, attach, user_name, phone, address, status, note
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from orders
-    where order_id = #{orderId,jdbcType=INTEGER}
-  </select>
-  <select id="selectByUserId" parameterType="int" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from orders
-    where user_id=#{userId}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from orders
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </select>
+    <select id="selectByUserId" parameterType="int" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from orders
+        where user_id=#{userId}
+    </select>
+    <select id="selectOrderIdList" parameterType="int" resultType="String">
+        select order_id from orders where user_id=#{userId}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from orders
     where order_id = #{orderId,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.xiaolan.bean.Orders" >
+    <insert id="insert" parameterType="com.xiaolan.bean.Orders">
     insert into orders (order_id, user_id, create_time, 
       break_time, end_time, order_fee, 
       order_list, prepay_id, trasaction_id, 
@@ -53,161 +56,164 @@
       #{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
       #{note,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.xiaolan.bean.Orders" >
-    insert into orders
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="orderId != null" >
-        order_id,
-      </if>
-      <if test="userId != null" >
-        user_id,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-      <if test="breakTime != null" >
-        break_time,
-      </if>
-      <if test="endTime != null" >
-        end_time,
-      </if>
-      <if test="orderFee != null" >
-        order_fee,
-      </if>
-      <if test="orderList != null" >
-        order_list,
-      </if>
-      <if test="prepayId != null" >
-        prepay_id,
-      </if>
-      <if test="trasactionId != null" >
-        trasaction_id,
-      </if>
-      <if test="notifyUrl != null" >
-        notify_url,
-      </if>
-      <if test="attach != null" >
-        attach,
-      </if>
-      <if test="userName != null" >
-        user_name,
-      </if>
-      <if test="phone != null" >
-        phone,
-      </if>
-      <if test="address != null" >
-        address,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="note != null" >
-        note,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="orderId != null" >
-        #{orderId,jdbcType=INTEGER},
-      </if>
-      <if test="userId != null" >
-        #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="breakTime != null" >
-        #{breakTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null" >
-        #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="orderFee != null" >
-        #{orderFee,jdbcType=REAL},
-      </if>
-      <if test="orderList != null" >
-        #{orderList,jdbcType=VARCHAR},
-      </if>
-      <if test="prepayId != null" >
-        #{prepayId,jdbcType=VARCHAR},
-      </if>
-      <if test="trasactionId != null" >
-        #{trasactionId,jdbcType=VARCHAR},
-      </if>
-      <if test="notifyUrl != null" >
-        #{notifyUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="attach != null" >
-        #{attach,jdbcType=VARCHAR},
-      </if>
-      <if test="userName != null" >
-        #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null" >
-        #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null" >
-        #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="note != null" >
-        #{note,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.xiaolan.bean.Orders" >
-    update orders
-    <set >
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="breakTime != null" >
-        break_time = #{breakTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="endTime != null" >
-        end_time = #{endTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="orderFee != null" >
-        order_fee = #{orderFee,jdbcType=REAL},
-      </if>
-      <if test="orderList != null" >
-        order_list = #{orderList,jdbcType=VARCHAR},
-      </if>
-      <if test="prepayId != null" >
-        prepay_id = #{prepayId,jdbcType=VARCHAR},
-      </if>
-      <if test="trasactionId != null" >
-        trasaction_id = #{trasactionId,jdbcType=VARCHAR},
-      </if>
-      <if test="notifyUrl != null" >
-        notify_url = #{notifyUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="attach != null" >
-        attach = #{attach,jdbcType=VARCHAR},
-      </if>
-      <if test="userName != null" >
-        user_name = #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="phone != null" >
-        phone = #{phone,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null" >
-        address = #{address,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="note != null" >
-        note = #{note,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where order_id = #{orderId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.xiaolan.bean.Orders" >
+    <insert id="insertSelective" parameterType="com.xiaolan.bean.Orders">
+        <selectKey keyProperty="orderId" order="AFTER" resultType="Integer">
+            select last_insert_id()
+        </selectKey>
+        insert into orders
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">
+                order_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="breakTime != null">
+                break_time,
+            </if>
+            <if test="endTime != null">
+                end_time,
+            </if>
+            <if test="orderFee != null">
+                order_fee,
+            </if>
+            <if test="orderList != null">
+                order_list,
+            </if>
+            <if test="prepayId != null">
+                prepay_id,
+            </if>
+            <if test="trasactionId != null">
+                trasaction_id,
+            </if>
+            <if test="notifyUrl != null">
+                notify_url,
+            </if>
+            <if test="attach != null">
+                attach,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="note != null">
+                note,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">
+                #{orderId,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="breakTime != null">
+                #{breakTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orderFee != null">
+                #{orderFee,jdbcType=REAL},
+            </if>
+            <if test="orderList != null">
+                #{orderList,jdbcType=VARCHAR},
+            </if>
+            <if test="prepayId != null">
+                #{prepayId,jdbcType=VARCHAR},
+            </if>
+            <if test="trasactionId != null">
+                #{trasactionId,jdbcType=VARCHAR},
+            </if>
+            <if test="notifyUrl != null">
+                #{notifyUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="attach != null">
+                #{attach,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="note != null">
+                #{note,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.xiaolan.bean.Orders">
+        update orders
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="breakTime != null">
+                break_time = #{breakTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="endTime != null">
+                end_time = #{endTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="orderFee != null">
+                order_fee = #{orderFee,jdbcType=REAL},
+            </if>
+            <if test="orderList != null">
+                order_list = #{orderList,jdbcType=VARCHAR},
+            </if>
+            <if test="prepayId != null">
+                prepay_id = #{prepayId,jdbcType=VARCHAR},
+            </if>
+            <if test="trasactionId != null">
+                trasaction_id = #{trasactionId,jdbcType=VARCHAR},
+            </if>
+            <if test="notifyUrl != null">
+                notify_url = #{notifyUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="attach != null">
+                attach = #{attach,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null">
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="note != null">
+                note = #{note,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where order_id = #{orderId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.xiaolan.bean.Orders">
     update orders
     set user_id = #{userId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},

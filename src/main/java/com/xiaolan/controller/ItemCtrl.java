@@ -37,15 +37,17 @@ public class ItemCtrl {
     @RequestMapping("/itemList")
     @ResponseBody
     public Result getItemList(Pager pager, String token) {
-        JedisUtil.reborn(token, StaticConfig.user_alive_time);
         Result result = new Result();
+        if (token == null || JedisUtil.getValue(token) == null) {
+            result.setRes(0);
+            result.setMsg("token无效，请重新登录");
+            return result;
+        }
+        JedisUtil.reborn(token, StaticConfig.user_alive_time);
         if (pager.getCurPage() == null) {
             pager.setCurPage(1);
         }
         List<ItemSimpleMsg> itemList = itemSerImpl.getItemListInPages(pager);
-        for (ItemSimpleMsg item : itemList) {
-
-        }
         if (itemList.size() > 0) {
             result.setRes(1);
             result.setMsg("查询成功");

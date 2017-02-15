@@ -35,4 +35,8 @@ public class UserSerImpl implements UserSer {
     public User getUserByOpenid(String openId) {
         return userMapper.selectByOpenid(openId);
     }
+
+    public User getUserByUserId(int userId) {
+        return userMapper.selectByPrimaryKey(userId);
+    }
 }

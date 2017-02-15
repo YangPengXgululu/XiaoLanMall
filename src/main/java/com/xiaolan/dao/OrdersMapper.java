@@ -2,6 +2,8 @@ package com.xiaolan.dao;
 
 import com.xiaolan.bean.Orders;
 
+import java.util.ArrayList;
+
 public interface OrdersMapper {
     int deleteByPrimaryKey(Integer orderId);
 
@@ -17,5 +19,5 @@ public interface OrdersMapper {
 
     int updateByPrimaryKey(Orders record);
 
-
+    ArrayList<String> selectOrderIdList(int userId);
 }

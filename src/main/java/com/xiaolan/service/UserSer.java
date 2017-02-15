@@ -15,4 +15,6 @@ public interface UserSer {
     int userInfoUpdate(User user);
 
     User getUserByOpenid(String openId);
+
+    User getUserByUserId(int userId);
 }
